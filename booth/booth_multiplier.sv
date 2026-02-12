@@ -37,7 +37,6 @@ module booth_multiplier #(
     logic signed [N-1:0] Q;        // Multiplier register
     logic                Q_1;      // Q(-1)
     logic signed [N:0]   M;        // Multiplicand (sign-extended)
-    logic signed [N:0]   M_comp;   // -M
     logic [$clog2(N):0]  count;
 
     // Temporary combinational value
@@ -49,7 +48,6 @@ module booth_multiplier #(
             Q       <= '0;
             Q_1     <= 1'b0;
             M       <= '0;
-            M_comp  <= '0;
             count   <= '0;
             done    <= 1'b0;
             product <= '0;
@@ -64,7 +62,6 @@ module booth_multiplier #(
                 Q      <= multiplier;
                 Q_1    <= 1'b0;
                 M      <= {multiplicand[N-1], multiplicand};  // sign extend
-                M_comp <= -{multiplicand[N-1], multiplicand};
                 count  <= N;
                 done   <= 1'b0;
             end
@@ -76,7 +73,7 @@ module booth_multiplier #(
                 // Booth's decisions
                 case ({Q[0], Q_1})
                     2'b01: A_temp = A + M;
-                    2'b10: A_temp = A + M_comp;
+                    2'b10: A_temp = A - M;
                     default: A_temp = A;
                 endcase
 
