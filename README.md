@@ -1,16 +1,18 @@
-# Descripción del proyecto
+# Proyecto corto 1
 
-# Explicación de los diseños
+## Descripción del proyecto
 
-## Uniciclo
+## Explicación de los diseños
 
-## Segmentada
+### Uniciclo
 
-## Booth
+### Segmentada
 
-# Instrucciones de construcción
+### Booth
 
-# Árbol de archivos
+## Instrucciones de construcción
+
+## Árbol de archivos
 
 - Bajo la carpeta `booth/` se encuentran los archivos relacionados a la arquitectura
   Booth, donde el archivo que la implementa se llama `booth_multiplier.sv`.
@@ -21,7 +23,7 @@
     ├── booth_multiplier.sv
 ```
 
-## Architecture Comparison
+## Comparación de arquitecturas
 
 | Arquitectura | Critical Path Delay (ns) | Max Frequency | Latency (cycles) | LUT Usage | FF Usage |
 | ------------ | ------------------------ | ------------- | ---------------- | --------- | -------- |
@@ -32,8 +34,11 @@
 ## Información general
 
 Curso de Diseño avanzado con FPGAs
+
 Programa de Maestría en Electrónica
+
 Tecnológico de Costa Rica
+
 Profesor Luis León Vega (l.leon@itcr.ac.cr)
 
 ### Estudiantes
