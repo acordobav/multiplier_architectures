@@ -9,11 +9,11 @@ module tb_booth_multiplier;
     logic start;
     logic signed [N-1:0] multiplicand;
     logic signed [N-1:0] multiplier;
-    logic signed [(2*N)-1:0] product;
+    logic signed [N-1:0] product;
     logic done;
 
     // Reference result
-    logic signed [(2*N)-1:0] expected;
+    logic signed [N-1:0] expected;
 
     // DUT
     booth_multiplier #(.N(N)) dut (
