@@ -23,19 +23,23 @@
 
 
 module mult64(
-    output reg [128:0] c,
-    input clk,
-    input rst,
-    input [63:0] a,
-    input [63:0] b
+    output logic [127:0] c,
+    input logic clk,
+    input logic rst,
+    input logic [63:0] a,
+    input logic [63:0] b
 );
 
-    always @(posedge clk) begin
-        if(rst)
-            c <= 128'd0;
-        else 
-            c <= a * b;
-    end     
+logic [127:0] c_reg;
+
+always_ff @(posedge clk) begin
+    if(rst)
+        c <= 128'd0;
+    else 
+    c <= a * b;
+end     
     
-    
+assign c = c_reg;
+
 endmodule
+
