@@ -21,11 +21,11 @@
 
 
 module mult64_wrapper(
-    output reg [128:0] c,
-    input clk,
-    input rst,
-    input [63:0] a,
-    input [63:0] b
+    output wire [127:0] c,
+    input wire clk,
+    input wire rst,
+    input wire [63:0] a,
+    input wire [63:0] b
 );
     
     mult64 mult_unic64x64(
