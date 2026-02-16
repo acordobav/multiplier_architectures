@@ -49,7 +49,7 @@ En la implementación en HDL de este algoritmo se utilizó una descripción comp
 
 | Arquitectura | Critical Path Delay (ns) | Max Frequency | Latency (cycles) | LUT Usage | FF Usage |
 | ------------ | ------------------------ | ------------- | ---------------- | --------- | -------- |
-| Uniciclo     | TBD                      | TBD           | TBD              | TBD       | TBD      |
+| Uniciclo     | 5.145 (WNS =-1.643 ns)   | 194.36 MHz    | 1                | 161       | 102      |
 | Segmentada   | TBD                      | TBD           | TBD              | TBD       | TBD      |
 | Booth        | 3.099                    | 322,68 MHz    | 64               | 169       | 265      |
 
