@@ -97,8 +97,18 @@ En la implementación en HDL de este algoritmo se utilizó una descripción comp
 | Arquitectura | Critical Path Delay (ns) | Max Frequency | Latency (cycles) | LUT Usage | FF Usage |
 | ------------ | ------------------------ | ------------- | ---------------- | --------- | -------- |
 | Uniciclo     | 5.145 (WNS =-1.643 ns)   | 194.36 MHz    | 1                | 161       | 102      |
-| Segmentada   | TBD                      | TBD           | 6                | 5380      | 245      |
+| Segmentada   | 0.059                    | 305,41MHz     | 6                | 5380      | 245      |
 | Booth        | 3.099                    | 322,68 MHz    | 64               | 169       | 265      |
+
+## Inteligencia Artificial
+
+## Segmented Multiplier
+En el caso de la arquitectura del Segmented Multiplier, herramientas de Inteligencia Artificial fueron utilizadas para comprender posibles soluciones al desafío de sumas parciales profundas, así como patrones de prueba para realizar testbenchs más robustos.
+
+Prompt utilizados:
+
+- In a segmented architecture I have a deep partial sum of products, which needs to be improved to meet the timing constraints. I have come with the idea of a reduction tree to simplify the deep partial sum. Which benefits can be obtained by using this approach on the timing?
+- While developing a Multiplier 64x64 in Verilog, I need to produce a TB that verifies that the multiplier is working as expected. Can you please give me examples of patterns, max and min values to be tested to make a robust TB? No code needed.
 
 ## Información general
 
@@ -118,13 +128,3 @@ Profesor Luis León Vega (l.leon@itcr.ac.cr)
 ## Repositorio
 
 https://github.com/acordobav/multiplier_architectures
-
-## Inteligencia Artificial
-
-## Segmented Multiplier
-En el caso de la arquitectura del Segmented Multiplier, herramientas de Inteligencia Artificial fueron utilizadas para comprender posibles soluciones al desafío de sumas parciales profundas, así como patrones de prueba para realizar testbenchs más robustos.
-
-Prompt utilizados:
-
-- In a segmented architecture I have a deep partial sum of products, which needs to be improved to meet the timing constraints. I have come with the idea of a reduction tree to simplify the deep partial sum. Which benefits can be obtained by using this approach on the timing?
-- While developing a Multiplier 64x64 in Verilog, I need to produce a TB that verifies that the multiplier is working as expected. Can you please give me examples of patterns, max and min values to be tested to make a robust TB? No code needed.
