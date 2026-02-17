@@ -97,7 +97,7 @@ En la implementación en HDL de este algoritmo se utilizó una descripción comp
 | Arquitectura | Critical Path Delay (ns) | Max Frequency | Latency (cycles) | LUT Usage | FF Usage |
 | ------------ | ------------------------ | ------------- | ---------------- | --------- | -------- |
 | Uniciclo     | 5.145 (WNS =-1.643 ns)   | 194.36 MHz    | 1                | 161       | 102      |
-| Segmentada   | 0.059                    | 305,41MHz     | 6                | 5380      | 245      |
+| Segmentada   | 3.271                    | 305,72MHz     | 6                | 5380      | 245      |
 | Booth        | 3.099                    | 322,68 MHz    | 64               | 169       | 265      |
 
 ## Inteligencia Artificial
