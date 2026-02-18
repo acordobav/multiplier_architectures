@@ -1,10 +1,57 @@
 # Proyecto corto 1
 
+</h4> <hr style="border: 1px solid #000;"/>
+
 ## Descripción del proyecto
 
-## Explicación de los diseños
+Este proyecto se basa en la implementación y comparación de distintas microarquitecturas para multiplicadores en FPGA. Consiste en tres diseños principales: una arquitectura uniciclo utilizando el operador *, una arquitectura segmentada basada en multiplicadores 8x8 con suma de productos parciales y registros intermedios, y un multiplicador multiciclo utilizando el algoritmo de Booth. 
+
+Cada arquitectura fue sintetizada para la plataforma AMD Kria KV260 a una frecuencia de 300 MHz, utilizando la estrategia por defecto de Vivado y sin emplear bloques DSP. Posteriormente, se realizó un análisis comparativo considerando el retardo de la ruta crítica, la frecuencia máxima alcanzada, la latencia en ciclos de reloj y el consumo de recursos (LUTs y Flip-Flops).
+
+El objetivo principal del proyecto es evaluar el impacto reflejado en cada diseño desarrollado en términos de desempeño, latencia y utilización de recursos.
+
+</h4> <hr style="border: 1px solid #000;"/>
+
+## Explicación de los diseños y las instrucciones de contrucción: 
 
 ### Uniciclo
+Para este diseño se utiliza un multiplicador 64x64 que utiliza el operador *, el cual posee una arquitectura uniciclo, con lógica combinacional delimitada por regsitros de entrada y salida. 
+
+Su funcionalidad se basa en la expresión matemática: 
+                    c = a * b. 
+Donde:
+a y b: Son registros de entrada de 64 bits cada uno. 
+c: Es el regsitro de salida de 128 bits, que representa el producto de la multiplicación.
+
+
+Al compararlo con los diseños siguientes, este diseño se muestra un poco simple, pues no requiere segmentación o máquinas de estado para su funcionamiento. Sin embargo, a la hora de su implementación a nivel de diagrama de bloques se debe tomar en cuenta limitaciones de los IPs de Vivado utilizados. Por ejemplo, el caso de los módulos: axi_gpios.
+Estos axi_gpios manejan entradas y salidas de 32 bits, mientras que el diseño del mutiplicador requiere datos de entrada de 64 bits y una salida de 128 bits.
+
+Por tanto, se requiere la utilización de nuevos IPs de Vivado como "Slice" y "Concat". El primero lo que hace es segmentar/particionar un bus de datos para obtener la cantidad de bits deseados en grupos separados. Y el segundo IP (Concat) lo que hace es, justamente como su nombre lo indica, concatenar grupos de bits en un sólo bus, respetando el orden que se le defina según la significancia de los bits.  
+
+<p align="center"> 
+  <img width="1245" height="515" alt="mult64x64" src="https://github.com/user-attachments/assets/5c5e72b5-86af-4e5a-9794-5d1e0e064743" />
+</p> 
+<p align="center">
+  Figura 1. Construcción del diseño del multiplicador 64x64 uniciclo
+</p>
+
+Tal y como se puede apreciar en la figura 1, para lograr obtener los datos de entrada del multiplicador es necesario concatenar las salidas de ambos axi_gpios con los módulos Concat. Y para extraer el dato resultante de la multiplicación, es necesario seccionar con ayuda de los Slice, el dato de 128 bits en grupos de 32 bits para que los axi_gpios puedan leerlos de vuelta.  
+
+Para la implementación del código, fue propuesta una arquitectura donde el data path consistía en:
+```
+├── Entrada de datos desde AXI GPIO
+└── Almacenamiento de datos en registros de entrada
+    ├── Operando A [63:0]
+    ├── Operando B [63:0]
+└── Operación combinacional (*)
+└── Registro de salida
+    └──Resultado [127:0]
+├── Salida de datos hacia AXI GPIO
+```
+
+</h4> <hr style="border: 1px solid #000;"/>
+
 
 ### Segmentada
 
@@ -52,6 +99,8 @@ Puntos clave:
 
 Para la implementación de esta arquitectura se utilizó Verilog.
 
+</h4> <hr style="border: 1px solid #000;"/>
+
 ### Booth
 
 El multiplicador de Booth utiliza una serie de registros para ir guardando los resultados intermedios de la multiplicación, ya que es un algoritmo serial que require $n$ ciclos de ejecución, donde $n$ es el número de bits de los operandos de entrada. Estos registros son:
@@ -76,21 +125,31 @@ El algoritmo basa su funcionamiento en la siguiente tabla de decisión:
 | 1     | 1        | Arithmetic Right Shift |
 
 En la implementación en HDL de este algoritmo se utilizó una descripción comportamental utilizando SystemVerilog.
-
-## Instrucciones de construcción
+</h4> <hr style="border: 1px solid #000;"/>
 
 ## Árbol de archivos
-
-- Bajo la carpeta `booth/` se encuentran los archivos relacionados a la arquitectura Booth, donde el archivo que la implementa se llama `booth_multiplier.sv`.
 
 ```
 ├── README.md
 └── booth/
     ├── booth_multiplier.sv
+    ├── booth_multiplier_wrapper.v
+    ├── tb_booth_multipler.sv
 └── segmented/
     ├── mult_64x64.v
     ├── mult_8x8.v
+    ├── tb_mult_64x64.v
+└── unicycle/
+    ├── design_1.v
+    ├── mult64.sv
+    ├── mult64_wrapper.v
+    ├── tb_mult64.sv
 ```
+- Bajo la carpeta `booth/` se encuentran los archivos relacionados a la arquitectura Booth(multiciclo), donde el archivo que la implementa se llama `booth_multiplier.sv`.
+- Bajo la carpeta `segmented/` se encuentran los archivos relacionados a la arquitectura Segmentada, donde el archivo que la implementa se llama `mult_64x64.v`.
+- Bajo la carpeta `unicycle/` se encuentran los archivos relacionados a la arquitectura Booth(segmentada), donde el archivo que la implementa se llama `mult64.sv`.
+
+</h4> <hr style="border: 1px solid #000;"/>
 
 ## Comparación de arquitecturas
 
@@ -100,15 +159,20 @@ En la implementación en HDL de este algoritmo se utilizó una descripción comp
 | Segmentada   | 3.271                    | 305,72MHz     | 6                | 5380      | 245      |
 | Booth        | 3.099                    | 322,68 MHz    | 64               | 169       | 265      |
 
+</h4> <hr style="border: 1px solid #000;"/>
+
 ## Inteligencia Artificial
 
-## Segmented Multiplier
-En el caso de la arquitectura del Segmented Multiplier, herramientas de Inteligencia Artificial fueron utilizadas para comprender posibles soluciones al desafío de sumas parciales profundas, así como patrones de prueba para realizar testbenchs más robustos.
+Las herramientas de Inteligencia Artificial fueron utilizadas para comprender posibles soluciones al desafío de sumas parciales profundas en el caso de la arquitectura segmentada. 
+Asimismo, se hizo uso de estas herramientas para la generación de bancos de prueba y patrones de estos, para realizar testbenchs más robustos.
 
-Prompt utilizados:
+
+Ejemplos de prompts utilizados:
 
 - In a segmented architecture I have a deep partial sum of products, which needs to be improved to meet the timing constraints. I have come with the idea of a reduction tree to simplify the deep partial sum. Which benefits can be obtained by using this approach on the timing?
 - While developing a Multiplier 64x64 in Verilog, I need to produce a TB that verifies that the multiplier is working as expected. Can you please give me examples of patterns, max and min values to be tested to make a robust TB? No code needed.
+
+</h4> <hr style="border: 1px solid #000;"/>
 
 ## Información general
 
@@ -118,12 +182,15 @@ Programa de Maestría en Electrónica
 
 Tecnológico de Costa Rica
 
-Profesor Luis León Vega (l.leon@itcr.ac.cr)
+Profesor: Luis León Vega (l.leon@itcr.ac.cr)
+
 
 ### Estudiantes
 
 - Arturo Córdoba (arturocv16@estudiantec.cr)
 - Víctor Sánchez (vicsma2409@estudiantec.cr)
+- Gill Carranza (gcarranza@estudiantec.cr)
+- Juan Pablo Ureña Madrigal (juurena@estudiantec.cr)
 
 ## Repositorio
 
