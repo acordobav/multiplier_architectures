@@ -111,9 +111,18 @@ El multiplicador de Booth utiliza una serie de registros para ir guardando los r
 - $Acc$: acumulador donde se guarda el resultado de $Acc ± M$.
 - $Count$: contador de operaciones faltantes y condición de parada.
 
-En la siguiente imagen se puede observar un diagrama de flujo para el algoritmo de Booth, donde se muestran los valores iniciales de los registros mencionados, y su utilización a lo largo del proceso.
+En la figura 2 se puede observar un diagrama de flujo para el algoritmo de Booth, donde se muestran los valores iniciales de los registros mencionados, y su utilización a lo largo del proceso.
 
-![Booth Multiplier Architecture](fig/booth_multiplier.svg)
+
+<p align="center">
+  <img src="fig/booth_multiplier.svg" alt="Booth Multiplier Architecture" width="600">
+</p>
+<p align="center">
+  Figura 2. Diagrama de flujo del algoritmo de Booth
+</p>
+
+
+
 
 El algoritmo basa su funcionamiento en la siguiente tabla de decisión:
 
@@ -187,10 +196,10 @@ Profesor: Luis León Vega (l.leon@itcr.ac.cr)
 
 ### Estudiantes
 
-- Arturo Córdoba (arturocv16@estudiantec.cr)
-- Víctor Sánchez (vicsma2409@estudiantec.cr)
-- Gill Carranza (gcarranza@estudiantec.cr)
-- Juan Pablo Ureña Madrigal (juurena@estudiantec.cr)
+- Arturo Córdoba   (arturocv16@estudiantec.cr)
+- Jill Carranza    (gcarranza@estudiantec.cr)
+- Juan Pablo Ureña (juurena@estudiantec.cr)
+- Víctor Sánchez   (vicsma2409@estudiantec.cr)
 
 ## Repositorio
 
