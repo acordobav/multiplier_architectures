@@ -99,6 +99,15 @@ Puntos clave:
 
 Para la implementación de esta arquitectura se utilizó Verilog.
 
+El diseño implementado para producir los resultados relacionados con la síntesis e implementación se encuentran en la siguiente figura
+
+<p align="center">
+  <img src="fig/design1_segmented.png" alt="Segmented Multiplier Design" width="600">
+</p>
+<p align="center">
+  Figura 2. Diagrama de diseño para Segmented Multiplier 64x64
+</p>
+
 </h4> <hr style="border: 1px solid #000;"/>
 
 ### Booth
@@ -165,7 +174,7 @@ En la implementación en HDL de este algoritmo se utilizó una descripción comp
 | Arquitectura | Critical Path Delay (ns) | Max Frequency | Latency (cycles) | LUT Usage | FF Usage |
 | ------------ | ------------------------ | ------------- | ---------------- | --------- | -------- |
 | Uniciclo     | 5.145 (WNS =-1.643 ns)   | 194.36 MHz    | 1                | 161       | 102      |
-| Segmentada   | 3.271                    | 305,72MHz     | 6                | 5380      | 245      |
+| Segmentada   | 3.304 (WNS = 0.026 ns)   | 302,66MHz     | 6                | 5380      | 245      |
 | Booth        | 3.099                    | 322,68 MHz    | 64               | 169       | 265      |
 
 </h4> <hr style="border: 1px solid #000;"/>
