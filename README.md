@@ -170,6 +170,17 @@ En la implementación en HDL de este algoritmo se utilizó una descripción comp
 
 </h4> <hr style="border: 1px solid #000;"/>
 
+### Analisis de Resultados
+
+A partir de los resultados obtenidos, se observa que la arquitectura uniciclo no logra cumplir la restricción de 300 MHz debido a su mayor camino crítico (5.145 ns), lo que limita su frecuencia máxima a 194.36 MHz. Sin embargo, tiene la ventaja de entregar el resultado en un solo ciclo y presentar el menor consumo de LUT y FF. Por su parte, tanto la arquitectura segmentada como el multiplicador de Booth sí superan los 300 MHz, ya que reducen el trabajo realizado en cada ciclo. 
+
+La arquitectura segmentada alcanza una alta frecuencia mediante el uso de pipeline, lo que incrementa significativamente el número de LUT y FF utilizados, además de introducir una latencia de 6 ciclos. El multiplicador de Booth, en cambio, requiere considerablemente menos LUT que la arquitectura segmentada y una cantidad de FF inferior a esta, aunque mayor que la arquitectura uniciclo, presentando además el menor camino crítico, pero con una latencia de 64 ciclos.
+
+En términos de eficiencia en área, Booth ofrece la mejor relación entre frecuencia alcanzada y recursos utilizados, mientras que la arquitectura segmentada proporciona un mejor desempeño cuando se prioriza el rendimiento continuo del sistema.
+
+
+
+
 ## Inteligencia Artificial
 
 Las herramientas de Inteligencia Artificial fueron utilizadas para comprender posibles soluciones al desafío de sumas parciales profundas en el caso de la arquitectura segmentada. 
